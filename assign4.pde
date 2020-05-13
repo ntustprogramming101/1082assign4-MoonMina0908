@@ -233,7 +233,7 @@ void draw() {
         }
       }
     }
-    //soilEmpty();
+    soilEmpty();
     
 
 		// Cabbages
@@ -432,18 +432,18 @@ void draw() {
 		
 	}
 }
-//void soilEmpty(){
-//  //soilEmpty
-//      //int[] empty =new int[24];
-//        for(int row=1; row<24 ;row++){
-//          for(int col=0; col<8; col++){
-//            for(int pick=0; pick<floor(random(2)); pick++){
-//              image(soilEmpty,col*block,row*block,block,block);
-//            }
-//          }
+void soilEmpty(){
+  //soilEmpty
+      //int[] empty =new int[24];
+        for(int row=1; row<24 ;row++){
+          for(int col=0; col<8; col++){
+            for(int pick=0; pick<floor(random(2)); pick++){
+              image(soilEmpty,col*block,row*block,block,block);
+            }
+          }
           
-//       }
-//}
+       }
+}
 void keyPressed(){
 	if(key==CODED){
 		switch(keyCode){
