@@ -38,6 +38,10 @@ int playerMoveDuration = 15;
 
 boolean demoMode = false;
 
+int block=80;
+int [] [] empty;
+int lifeX=10, lifeY=10, lifeGap=70;
+
 void setup() {
 	size(640, 480, P2D);
 	bg = loadImage("img/bg.jpg");
@@ -99,7 +103,7 @@ void setup() {
 	}
 
 	// Initialize soidiers and their position
-
+  
 	// Initialize cabbages and their position
 
 }
@@ -159,13 +163,81 @@ void draw() {
 				// NOTE: To avoid errors on webpage, you can either use floor(j / 4) or (int)(j / 4) to make sure it's an integer.
 				int areaIndex = floor(j / 4);
 				image(soils[areaIndex][4], i * SOIL_SIZE, j * SOIL_SIZE);
+        
+        
 				
 			}
 		}
+    //Stone
+    //1~8
+    for (int i=0;i<8;i++){
+     image(stones[0][4],i*block,i*block,block,block);
+     soilHealth[i][i]=30;
+    }
+    //9~16
+    for(int i=0;i<8;i++){
+      if (i%4==1||i%4==2){
+        for(int j=0;j<8;j++){
+          if (j%4==0||j%4==3){
+            image(stones[0][4],j*block,(i+8)*block,block,block);
+            soilHealth[i][j+8]=30;
+          }
+        }
+      }
+      if (i%4==3||i%4==0){
+        for(int j=0;j<8;j++){
+          if (j%4==1||j%4==2){
+            image(stones[0][4],j*block,(i+8)*block,block,block);
+            soilHealth[i][j+8]=30;
+          }
+        }
+      }
+    }
+    //17~24
+     for (int i=0;i<8;i++){
+      if(i%3==0){
+        for(int j=0;j<8;j++){
+          if(j%3!=0){
+            image(stones[0][4],j*block,(i+16)*block,block,block);
+            soilHealth[i][j+16]=30;
+            if(j%3==2){
+              image(stones[1][4],j*block,(i+16)*block,block,block);
+              soilHealth[i][j+16]=45;
+              
+            }
+          }
+        }
+      }
+      if(i%3==1){
+        for(int j=0;j<8;j++){
+          if(j%3!=2){
+            image(stones[0][4],j*block,(i+16)*block,block,block);
+            soilHealth[i][j+16]=30;
+            if(j%3==1){
+              image(stones[1][4],j*block,(i+16)*block,block,block);
+              soilHealth[i][j+16]=45;
+            }
+          }
+        }
+      }
+      if(i%3==2){
+        for(int j=0;j<8;j++){
+          if(j%3!=1){
+            image(stones[0][4],j*block,(i+16)*block,block,block);
+            soilHealth[i][j+16]=30;
+            if(j%3==0){
+              image(stones[1][4],j*block,(i+16)*block,block,block);
+              soilHealth[i][j+16]=45;
+            }
+          }
+        }
+      }
+    }
+    soilEmpty();
+    
 
 		// Cabbages
 		// > Remember to check if playerHealth is smaller than PLAYER_MAX_HEALTH!
-
 		// Groundhog
 
 		PImage groundhogDisplay = groundhogIdle;
@@ -310,7 +382,9 @@ void draw() {
 		popMatrix();
 
 		// Health UI
-
+    for (int i=10; i<10+lifeGap*playerHealth; i+=lifeGap) {
+      image(life, i, lifeY);
+    }
 		break;
 
 		case GAME_OVER: // Gameover Screen
@@ -358,7 +432,18 @@ void draw() {
 		
 	}
 }
-
+void soilEmpty(){
+  //soilEmpty
+      //int[] empty =new int[24];
+        for(int row=1; row<24 ;row++){
+          for(int col=0; col<8; col++){
+            for(int pick=0; pick<floor(random(2)); pick++){
+              image(soilEmpty,col*block,row*block,block,block);
+            }
+          }
+          
+       }
+}
 void keyPressed(){
 	if(key==CODED){
 		switch(keyCode){
